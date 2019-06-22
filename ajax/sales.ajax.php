@@ -6,7 +6,8 @@ if($login){
 	if(!empty($_GET))
 	switch($_GET['cmd']){
 		case 'GetOrders': 
-						$Qw="SELECT * FROM order_tab WHERE pid IN (SELECT pid FROM product_tab WHERE rid=?)";
+						//$Qw="SELECT * FROM order_tab WHERE pid IN (SELECT pid FROM product_tab WHERE rid=?)";
+						$Qw="SELECT order_tab.oid,pid,cid,order_data,oid_status.status,order_tab.datetime AS order_datetime,oid_status.datetime AS status_datetime FROM order_tab,oid_status WHERE order_tab.oid=oid_status.oid AND order_tab.pid IN (SELECT pid FROM product_tab WHERE rid=?) ORDER BY oid_status.datetime DESC LIMIT 1";
 						$stmt=$con->prepare($Qw);
 						$stmt->bindParam(1,$_SESSION['id'],PDO::PARAM_INT);
 						$stmt->execute();

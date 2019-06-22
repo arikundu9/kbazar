@@ -125,7 +125,7 @@ include 'header.php';
 			if(response.header.login==true){
 				$.each(response.body,function(i,e){
 					if(e.status === 'New')
-						$('#render_panel').append(get_order_html(0,23,'nn','',e.pid,'name','',e.status));
+						$('#render_panel').append(get_order_html(0,e.oid,'nn','',e.pid,'name','',e.status));
 					//console.log(e);
 				});
 				$('#render_panel').trigger('loaded');
@@ -148,8 +148,8 @@ include 'header.php';
 		.done(function(response){
 			if(response.header.login==true){
 				$.each(response.body,function(i,e){
-					if(e.status === 'refund_r' || e.status === 'replace_r')
-						$('#render_panel').append(get_order_html(0,23,'nn','',e.pid,'name','',e.status));
+					if(e.status === 'Refund Requested' || e.status === 'Replace Requested')
+						$('#render_panel').append(get_order_html(0,e.oid,'nn','',e.pid,'name','',e.status));
 					//console.log(e);
 				});
 				$('#render_panel').trigger('loaded');
