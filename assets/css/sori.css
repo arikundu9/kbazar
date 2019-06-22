@@ -1,0 +1,80 @@
+.SideBar{
+	border-right: 1px solid rgba(0,0,0,0.3);
+	background: linear-gradient(to left top,#ccc,#f1f1f1);
+	z-index:10001;
+	box-shadow: 5px 0 15px rgba(0,0,0,.5);
+	position:fixed;
+	overflow-y: auto;
+    -webkit-transition: -webkit-transform 300ms ease;
+    -webkit-transition-duration: 300ms;
+    -moz-transition: -moz-transform 300ms ease;
+    transition: transform 300ms ease;
+}
+
+.SideBar.left{
+	height:100vh;
+	top:0;
+	left:0;
+	max-width: 70vw;
+}
+.SideBar.right{
+	height:100vh;
+	border-left: 1px solid rgba(0,0,0,0.3);
+	box-shadow: -5px 0 15px rgba(0,0,0,.5);
+	top:0;
+	right:0;
+	max-width: 70vw;
+}
+.SideBar.top{
+	width:100vw;
+	border-bottom: 1px solid rgba(0,0,0,0.3);
+	box-shadow: 0 5px 15px rgba(0,0,0,.5);
+	top:0;
+	right:0;
+	max-height: 70vh;
+	
+}
+.SideBar.bottom{
+	width:100vw;
+	border-top: 1px solid rgba(0,0,0,0.3);
+	box-shadow: 0 -5px 15px rgba(0,0,0,.5);
+	bottom:0;
+	right:0;
+	max-height: 70vh;
+}
+
+.SideBar.baropen{
+	-webkit-transform: translate3d(0,0,0);
+    -moz-transform: translate3d(0,0,0);
+    transform: translate3d(0,0,0);
+}
+
+.SideBar.left.barclose{
+	-webkit-transform: translate3d(-110%,0,0);
+    -moz-transform: translate3d(-110%,0,0);
+    transform: translate3d(-110%,0,0);
+}
+.SideBar.right.barclose{
+	-webkit-transform: translate3d(110%,0,0);
+    -moz-transform: translate3d(110%,0,0);
+    transform: translate3d(110%,0,0);
+}
+.SideBar.top.barclose{
+	-webkit-transform: translate3d(0,-110%,0);
+    -moz-transform: translate3d(0,-110%,0);
+    transform: translate3d(0,-110%,0);
+}
+.SideBar.bottom.barclose{
+	-webkit-transform: translate3d(0,110%,0);
+    -moz-transform: translate3d(0,110%,0);
+    transform: translate3d(0,110%,0);
+}
+
+
+
+.Slider{
+	overflow: hidden;
+}
+.Slider.Frame{
+	width: 100%;
+}

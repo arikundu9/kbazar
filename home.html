@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<meta name="theme-color" content="#609a41"/>
+
+    <link rel="icon" href="./assets/icons/favicon.ico">
+
+    <title>Products :: KBazar.</title>
+
+    <link href="./assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./assets/open-iconic/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <link href="./assets/css/glyphicon.css" rel="stylesheet">
+    <link href="./assets/css/style.css?t=1556727322" rel="stylesheet">
+    <link href="./assets/css/sori.css?t=1501158432" rel="stylesheet">
+
+    <script src="./assets/jquery/jquery-3.3.1.min.js"></script>
+
+    <script src="./assets/js/popper.min.js"></script>
+    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="./assets/js/sori.js"></script>
+    <script src="./assets/js/script.js?t=1554910363"></script>
+</head>
+
+<body>
+	<div class="container-fluid position-sticky mb-0 rbn">
+		<div class="row">
+			<div class="col p-0">
+				<div class="xrb-left ml-auto"></div>
+			</div>
+			<div class="col-12 p-0" data-include="nav.html"></div>
+			<div class="col p-0">
+				<div class="xrb-right mr-auto"></div>
+			</div>
+		</div>
+	</div>	
+
+	<main role="main" class="container-fluid mt-2">
+		<div class="row justify-content-center" id="crow">
+		</div>
+	</main>
+	
+	<div class="d-block" style="height:50px;"></div>
+	<div data-include="foot-nav.html"></div>
+	<div data-include="http://localhost/404.html"></div>
+	</body>
+</html>
+<script>
+$(document).ready(function() {
+	$('[data-include]').each(function(i,e){
+		$(this).load($(this).attr('data-include'));
+	});
+});
+</script>
