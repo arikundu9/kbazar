@@ -114,6 +114,14 @@ include 'header.php';
 			let id=parseInt($(this).attr('data-id'));
 			console.log('id accept '+id+' clicked.');
 		});
+		$('[id^=rrRejectBtn-]').on('click',function(){
+			let id=parseInt($(this).attr('data-id'));
+			console.log('id rr_reject '+id+' clicked.');
+		});
+		$('[id^=rrAcceptBtn-]').on('click',function(){
+			let id=parseInt($(this).attr('data-id'));
+			console.log('id rr_accept '+id+' clicked.');
+		});
 	});
 
 	function render_new_orders(){
@@ -124,8 +132,8 @@ include 'header.php';
 		.done(function(response){
 			if(response.header.login==true){
 				$.each(response.body,function(i,e){
-					if(e.status === 'New')
-						$('#render_panel').append(get_order_html(0,e.oid,'nn','',e.pid,'name','',e.status));
+					if(e.status === 'New' || e.status === 'Accepted' || e.status === 'New' || e.status === 'Picked' || e.status === 'Delevered')
+						$('#render_panel').append(get_order_html(0,e.oid,'nn','',e.pid,e.name,'',e.status));
 					//console.log(e);
 				});
 				$('#render_panel').trigger('loaded');
@@ -148,8 +156,8 @@ include 'header.php';
 		.done(function(response){
 			if(response.header.login==true){
 				$.each(response.body,function(i,e){
-					if(e.status === 'Refund Requested' || e.status === 'Replace Requested')
-						$('#render_panel').append(get_order_html(0,e.oid,'nn','',e.pid,'name','',e.status));
+					if(e.status === 'Refund Requested' || e.status === 'Refund Accepted' || e.status === 'Refund Rejected' || e.status === 'Refund Picked' || e.status === 'Refunded' || e.status === 'Replace Requested' || e.status === 'Replace Accepted' || e.status === 'Replace Rejected' || e.status === 'Replaced')
+						$('#render_panel').append(get_rrorder_html(0,e.oid,'nn','',e.pid,e.name,'',e.status));
 					//console.log(e);
 				});
 				$('#render_panel').trigger('loaded');
@@ -176,12 +184,12 @@ include 'header.php';
 						'<ul class="list-group list-group-flush">' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product ID:</b> '+price+'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product Name:</b> '+stock+' '+unit+'</li>' + 
-							'<li class="kb list-group-item border-left-0 border-right-0"><b>Status:</b> '+status+'</li>' + 
+							'<li class="kb list-group-item border-left-0 border-right-0"><b>Status:</b> <small>'+status+'</small></li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0 text-center p-1">' +
-								'<button type="button" class="btn btn-primary btn-sm w-100" id="returnAcceptBtn-'+id+'" data-id="'+id+'">Accept</button>' + 
+								'<button type="button" class="btn btn-primary btn-sm w-100" id="rrAcceptBtn-'+id+'" data-id="'+id+'">Accept</button>' + 
 							'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0 text-center p-1">' +
-								'<button type="button" class="btn btn-secondary btn-sm w-100" id="returnRejetBtn-'+id+'" data-id="'+id+'">Reject</button>' + 
+								'<button type="button" class="btn btn-secondary btn-sm w-100" id="rrRejectBtn-'+id+'" data-id="'+id+'">Reject</button>' + 
 							'</li>' + 
 						'</ul>' + 
 					'</div>' +
@@ -206,7 +214,7 @@ include 'header.php';
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Order ID:</b> '+id+'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product ID:</b> '+price+'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product Name:</b> '+stock+' '+unit+'</li>' + 
-							'<li class="kb list-group-item border-left-0 border-right-0"><b>Status:</b> '+status+'</li>' + 
+							'<li class="kb list-group-item border-left-0 border-right-0"><b>Status:</b> <small>'+status+'</small></li>' + 
 						'</ul>' + 
 					'</div>' +
 					'<div class="kb card-footer d-flex align-content-center flex-wrap justify-content-between">' + 
