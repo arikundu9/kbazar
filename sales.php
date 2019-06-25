@@ -77,7 +77,8 @@ include 'header.php';
 </body>
 <?php include 'footer.php';?>
 <script>
-
+	var RESPONSE=null;
+	var toast=100;
 	$(document).ajaxStart(function(){
 		$("#loading").show();
 	});
@@ -112,7 +113,17 @@ include 'header.php';
 		});
 		$('[id^=newOrderAcceptBtn-]').on('click',function(){
 			let id=parseInt($(this).attr('data-id'));
-			console.log('id accept '+id+' clicked.');
+			//console.log('id accept '+id+' clicked.');
+			//console.log(RESPONSE);
+			$.each(RESPONSE.body,function(i,item){
+				if(item.oid==id){
+					edit_order_and_do(item,'Accepted',function(response){
+						render_new_orders();
+						post_toast('Order Accepted','Order (OID: '+item.oid+') is accepted successfully.<br>Pack the order, to be picked by Delevery Man soon.');
+						//console.log('he he he he',response);
+					});
+				}
+			});
 		});
 		$('[id^=rrRejectBtn-]').on('click',function(){
 			let id=parseInt($(this).attr('data-id'));
@@ -124,6 +135,54 @@ include 'header.php';
 		});
 	});
 
+	function get_time() {
+		date=new Date;
+		var hours = date.getHours();
+		var minutes = date.getMinutes();
+		var sec = date.getSeconds();
+		var ampm = hours >= 12 ? 'PM' : 'AM';
+		hours = hours % 12;
+		hours = hours ? hours : 12; // the hour '0' should be '12'
+		minutes = minutes < 10 ? '0'+minutes : minutes;
+		var strTime = hours + ':' + minutes + ':' + sec + ' ' + ampm;
+		return strTime;
+	}
+	
+	function get_toast_html(id,heading,sub,body){
+		return ''+
+			'<div class="toast kb-toast" role="alert" aria-live="assertive" aria-atomic="true" id="toast' + id + '" data-autohide="false">'+
+				'<div class="toast-header kb-toast-header">'+
+					'<!--<img src="..." class="rounded mr-2" alt="...">-->'+
+					'<span class="oi oi-bell mr-2"></span>'+
+					'<strong class="mr-auto">'+heading+'</strong>'+
+					'<small>'+sub+'</small>'+
+					'<button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">'+
+						'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+				'</div>'+
+				'<div class="toast-body kb-toast-body">'+
+					body+
+				'</div>'+
+			'</div>';
+	}
+	
+	function post_toast(title,body){
+		$('#notice_panel').prepend(
+			get_toast_html(++toast,title,get_time(),body)
+		);
+		$('#toast'+toast).toast('show');
+		/*$('#toast'+toast).on('shown.bs.toast', function () {
+			$(this).onSwipe({direction:'right'},function(){
+				$(this).toast('hide');
+			});
+		});*/
+		$('#toast'+toast).on('shown.bs.toast', function () {
+			$(this).onSwipe({direction:'right'},$.proxy(function(){
+				$(this).toast('hide');
+			},this));
+		});
+	}
+	
 	function render_new_orders(){
 		$('#render_panel').html('');
 		$.getJSON('./ajax/sales.ajax.php',{
@@ -131,10 +190,11 @@ include 'header.php';
 		})
 		.done(function(response){
 			if(response.header.login==true){
+				RESPONSE=response;
 				$.each(response.body,function(i,e){
-					if(e.status === 'New' || e.status === 'Accepted' || e.status === 'New' || e.status === 'Picked' || e.status === 'Delevered')
-						$('#render_panel').append(get_order_html(0,e.oid,'nn','',e.pid,e.name,'',e.status));
-					//console.log(e);
+					if(e.status === 'New' || e.status === 'Accepted' || e.status === 'Rejected' || e.status === 'Picked' || e.status === 'Delevered')
+						$('#render_panel').append(get_order_html(e.oid,e.name,e.pid,e.order_data,e.status));
+					//console.log($.parseJSON(e.order_data));
 				});
 				$('#render_panel').trigger('loaded');
 			}
@@ -155,6 +215,7 @@ include 'header.php';
 		})
 		.done(function(response){
 			if(response.header.login==true){
+				RESPONSE=response;
 				$.each(response.body,function(i,e){
 					if(e.status === 'Refund Requested' || e.status === 'Refund Accepted' || e.status === 'Refund Rejected' || e.status === 'Refund Picked' || e.status === 'Refunded' || e.status === 'Replace Requested' || e.status === 'Replace Accepted' || e.status === 'Replace Rejected' || e.status === 'Replaced')
 						$('#render_panel').append(get_rrorder_html(0,e.oid,'nn','',e.pid,e.name,'',e.status));
@@ -201,7 +262,9 @@ include 'header.php';
 			'</div>';
 	}
 
-	function get_order_html(i,id,name,thumb,price,stock,unit,status){
+	function get_order_html(id,name,pid,jdata,status){
+		data=$.parseJSON(jdata);
+		//console.log(U[data.suid]);
 		return ''+
 			'<div class="col-6 col-sm-4 col-md-3 col-lg-2 col-xl-2 my-2" id="item_'+id+'">' + 
 				'<div class="card border border-1 border-secondary">' + 
@@ -212,8 +275,9 @@ include 'header.php';
 					'<img class="card-img-top" src="./thumbs/default.jpg" alt="Card image cap" id="thumb1_'+id+'">' + 
 						'<ul class="list-group list-group-flush">' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Order ID:</b> '+id+'</li>' + 
-							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product ID:</b> '+price+'</li>' + 
-							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product Name:</b> '+stock+' '+unit+'</li>' + 
+							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product ID:</b> '+pid+'</li>' + 
+							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product Name:</b> '+name+'</li>' + 
+							'<li class="kb list-group-item border-left-0 border-right-0"><b>Ordered:</b> '+data.ordered_unit+' '+RESPONSE.units[data.suid]+'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Status:</b> <small>'+status+'</small></li>' + 
 						'</ul>' + 
 					'</div>' +
@@ -223,5 +287,46 @@ include 'header.php';
 					'</div>' + 
 				'</div>' + 
 			'</div>';
+	}
+	function edit_order_and_do(item,action,calbak){
+		fd=new FormData();
+		fd.append('cmd','EditOrder');
+		fd.append('oid',item.oid);
+		fd.append('pid',item.pid);
+		fd.append('cid',item.cid);
+		fd.append('status',item.status);
+		fd.append('action',action);
+		$.ajax({
+			method : 'POST',
+			url: './ajax/sales.ajax.php',
+			data: fd,
+			cache: false,
+			contentType: false,
+			processData: false/* ,
+			beforeSend: function(){
+				$('#edit_spinner').show();
+			},
+			complete: function(){
+				$('#edit_spinner').hide();
+			},
+			success: function(msg){
+				//console.log(msg);
+			} */
+		})
+		.done(function(ret){
+			response=$.parseJSON(ret);
+			//console.log(response);
+			if(response.header.login==true){
+				calbak(response);
+			}
+			else{
+				window.location.replace('./index.php');
+			}
+		})
+		.fail(function( jqxhr, textStatus, error ) {
+			DATA=false;
+			var err = textStatus + ", " + error;
+			console.log( "Request Failed: " + err );
+		});
 	}
 </script>
