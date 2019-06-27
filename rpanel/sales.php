@@ -191,6 +191,20 @@ include 'header.php';
 				}
 			});
 		});
+		$('[id^=refundedBtn-]').on('click',function(){
+			let id=parseInt($(this).attr('data-id'));
+			//console.log('id rr_accept '+id+' clicked.');
+			$.each(RESPONSE.body,function(i,item){
+				if(item.oid==id){
+					edit_order_and_do(item,'Refunded',function(response){
+						render_rr_orders();
+						post_toast('Product Refunded','Order (OID: '+item.oid+') is refunded successfully.');
+						$('#mg').html(get_alert_html(response.msg.degree,response.msg.body));
+						//console.log('he he he he',response);
+					});
+				}
+			});
+		});
 	});
 
 	function get_time() {
@@ -288,6 +302,11 @@ include 'header.php';
 							'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0 text-center p-1">' +
 								'<button type="button" class="btn btn-secondary btn-sm w-100" id="rrRejectBtn-'+e.oid+'" data-id="'+e.oid+'">Reject</button>' + 
+							'</li>';
+			}
+			if(e.status === 'Refund Picked'){
+				r+=			'<li class="kb list-group-item border-left-0 border-right-0 text-center p-1">' +
+								'<button type="button" class="btn btn-primary btn-sm w-100" id="refundedBtn-'+e.oid+'" data-id="'+e.oid+'">Refunded</button>' + 
 							'</li>';
 			}
 			r+=			'</ul>' + 

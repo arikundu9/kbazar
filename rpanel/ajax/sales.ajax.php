@@ -64,17 +64,17 @@ if($login){
 	if(!empty($_POST))
 	switch($_POST['cmd']){
 		case 'EditOrder':
-						if($_POST['action']=="Accepted"){
+						if($_POST['action']=='Accepted'){
 							switch($_POST['status']){
 								case 'New':
 									$status='Accepted';
-									$Qw="UPDATE order_tab SET status=? WHERE oid=?";
+									/* $Qw="UPDATE order_tab SET status=? WHERE oid=?";
 									$stmt=$con->prepare($Qw);
 									$stmt->bindParam(1,$status,PDO::PARAM_STR);
 									$stmt->bindParam(2,$_POST['oid'],PDO::PARAM_INT);
 									$stmt->execute();
 									//$data = $stmt->fetch();
-									$stmt=null;
+									$stmt=null; */
 									
 									$who='Shop Owner';
 									$time=time();
@@ -90,13 +90,13 @@ if($login){
 								break;
 								case 'Replace Requested':
 									$status='Replace Accepted';
-									$Qw="UPDATE order_tab SET status=? WHERE oid=?";
+									/* $Qw="UPDATE order_tab SET status=? WHERE oid=?";
 									$stmt=$con->prepare($Qw);
 									$stmt->bindParam(1,$status,PDO::PARAM_STR);
 									$stmt->bindParam(2,$_POST['oid'],PDO::PARAM_INT);
 									$stmt->execute();
 									//$data = $stmt->fetch();
-									$stmt=null;
+									$stmt=null; */
 									
 									$who='Shop Owner';
 									$time=time();
@@ -112,6 +112,21 @@ if($login){
 								break;
 							}
 						}
+						if($_POST['action']=='Refunded' and $_POST['status']=='Refund Picked'){
+							$status='Refunded';
+							$who='Shop Owner';
+							$time=time();
+							$Qw="INSERT INTO oid_status(oid,status,who,datetime) VALUES (?,?,?,?)";
+							$stmt=$con->prepare($Qw);
+							$stmt->bindParam(1,$_POST['oid'],PDO::PARAM_INT);
+							$stmt->bindParam(2,$status,PDO::PARAM_STR);
+							$stmt->bindParam(3,$who,PDO::PARAM_STR);
+							$stmt->bindParam(4,$time,PDO::PARAM_STR);
+							$stmt->execute();
+							$stmt=null;
+							$response['msg']=['degree'=>'success','body'=>'Order <strong>(OID : '.$_POST['oid'].')</strong> is Refunded.'];
+						}
+						//$response['msg']=['degree'=>'danger','body'=>'Action Not Found.'.$_POST['action'].$_POST['status']];
 		break;
 		case 'CmD': 
 		break;
