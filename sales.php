@@ -28,7 +28,13 @@ include 'header.php';
 				<a class="nav-link active" href="#" data-tab="1">New Orders</a>
 			</li>
 			<li class="nav-item tab" id="rr_tab">
-				<a class="nav-link" href="#" data-tab="2">Replace/Refund</a>
+				<a class="nav-link" href="#" data-tab="2">Replace/Refund Requests</a>
+			</li>
+			<li class="nav-item tab" id="sterminated_tab">
+				<a class="nav-link" href="#" data-tab="3">Semi-Terminated Orders</a>
+			</li>
+			<li class="nav-item tab" id="terminated_tab">
+				<a class="nav-link" href="#" data-tab="4">Terminated Orders</a>
 			</li>
 			<!--<li class="nav-item dropdown tab" id="more_tab">
 				<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" data-tab="3">More</a>
@@ -99,10 +105,31 @@ include 'header.php';
 			$('.nav-link',this).addClass('active');
 			render_rr_orders();
 		});
-		$('#more_tab').on('click',function(){
+		$('#sterminated_tab').on('click',function(){
 			$('[data-tab]').removeClass('active');
 			$('.nav-link',this).addClass('active');
-			$('#render_panel').html('');
+			reload(function(response){
+				$('#render_panel').html('');
+				$.each(response.body,function(i,order){
+					if(order.status === 'Delevered' || order.status === 'Refund Rejected' || order.status === 'Replace Rejected' || order.status === 'Replaced'){
+						$('#render_panel').append(get_order_html(order));
+					}
+				});
+				$('#render_panel').trigger('loaded');
+			});
+		});
+		$('#terminated_tab').on('click',function(){
+			$('[data-tab]').removeClass('active');
+			$('.nav-link',this).addClass('active');
+			reload(function(response){
+				$('#render_panel').html('');
+				$.each(response.body,function(i,order){
+					if(order.status === 'Rejected' || order.status === 'Canceled' || order.status === 'Refunded'){
+						$('#render_panel').append(get_order_html(order));
+					}
+				});
+				$('#render_panel').trigger('loaded');
+			});
 		});
 	});
 	
@@ -216,51 +243,25 @@ include 'header.php';
 	
 	function render_new_orders(){
 		$('#render_panel').html('');
-		$.getJSON('./ajax/sales.ajax.php',{
-			cmd: 'GetOrders'
-		})
-		.done(function(response){
-			if(response.header.login==true){
-				RESPONSE=response;
-				$.each(response.body,function(i,e){
-					if(e.status === 'New' || e.status === 'Accepted' || e.status === 'Rejected' || e.status === 'Picked' || e.status === 'Delevered')
-						$('#render_panel').append(get_order_html(e));
-					//console.log(e);
-				});
-				$('#render_panel').trigger('loaded');
-			}
-			else{
-				window.location.replace('./index.php');
-			}
-		})
-		.fail(function( jqxhr, textStatus, error ){
-			var err = textStatus + ", " + error;
-			console.log( "Request Failed: " + err );
+		reload(function(response){
+			$.each(response.body,function(i,e){
+				if(e.status === 'New' || e.status === 'Accepted' || e.status === 'Picked')
+					$('#render_panel').append(get_order_html(e));
+				//console.log(e);
+			});
+			$('#render_panel').trigger('loaded');
 		});
 	}
 
 	function render_rr_orders(){
 		$('#render_panel').html('');
-		$.getJSON('./ajax/sales.ajax.php',{
-			cmd: 'GetOrders'
-		})
-		.done(function(response){
-			if(response.header.login==true){
-				RESPONSE=response;
-				$.each(response.body,function(i,e){
-					if(e.status === 'Refund Requested' || e.status === 'Refund Accepted' || e.status === 'Refund Rejected' || e.status === 'Refund Picked' || e.status === 'Refunded' || e.status === 'Replace Requested' || e.status === 'Replace Accepted' || e.status === 'Replace Rejected' || e.status === 'Replaced')
-						$('#render_panel').append(get_rrorder_html(e));
-					//console.log(e);
-				});
-				$('#render_panel').trigger('loaded');
-			}
-			else{
-				window.location.replace('./index.php');
-			}
-		})
-		.fail(function( jqxhr, textStatus, error ){
-			var err = textStatus + ", " + error;
-			console.log( "Request Failed: " + err );
+		reload(function(response){
+			$.each(response.body,function(i,e){
+				if(e.status === 'Refund Requested' || e.status === 'Refund Accepted' || e.status === 'Refund Picked' || e.status === 'Replace Requested' || e.status === 'Replace Accepted' || e.status === 'Replace Picked' || e.status === 'Exchanged')
+					$('#render_panel').append(get_rrorder_html(e));
+				//console.log(e);
+			});
+			$('#render_panel').trigger('loaded');
 		});
 	}
 
@@ -385,4 +386,24 @@ include 'header.php';
 			console.log( "Request Failed: " + err );
 		});
 	}
+	
+	function reload(calbak){
+		$.getJSON('./ajax/sales.ajax.php',{
+			cmd: 'GetOrders'
+		})
+		.done(function(response){
+			if(response.header.login==true){
+				RESPONSE=response;
+				calbak(response);
+			}
+			else{
+				window.location.replace('./index.php');
+			}
+		})
+		.fail(function( jqxhr, textStatus, error ){
+			var err = textStatus + ", " + error;
+			console.log( "Request Failed: " + err );
+		});
+	}
+	
 </script>

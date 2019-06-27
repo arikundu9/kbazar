@@ -328,12 +328,12 @@ include 'header.php';
 					</div>
 				</li>
 			</ul>
-			<form class="form-inline my-2 my-sm-0 mr-sm-2" method="get" action="login.php">
+			<!--<form class="form-inline my-2 my-sm-0 mr-sm-2" method="get" action="login.php">
 				<div class="input-group">
 					<input class="form-control form-control-sm" id="pids" name="pid" type="text" placeholder="Enter Product ID" aria-label="Search"/>
 					<button class="input-group-append btn btn-outline-success" id="pidsb" type="submit"><span class="oi oi-magnifying-glass top-0"></span></button>
 				</div>
-			</form>
+			</form>-->
 		</div>
 		<button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
 			<span class="oi oi-chevron-top top--1"></span>
