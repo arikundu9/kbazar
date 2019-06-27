@@ -1,0 +1,35 @@
+
+	<nav class="navbar navbar-expand-md fixed-bottom navbar-dark bg-dark xd-flex xalign-content-center xflex-wrap xjustify-content-between">
+		<div class="navbar-collapse collapse" id="navbarCollapse" style="">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item active">
+					<a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="#">Link</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link disabled" href="#">Disabled</a>
+				</li>
+				<li class="nav-item dropup">
+					<a class="nav-link dropdown-toggle" href="#" id="dropdown10" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Filters</a>
+					<div class="dropdown-menu" aria-labelledby="dropdown10">
+						<a class="dropdown-item" href="#">No of Stock</a>
+						<a class="dropdown-item" href="#">No of Sale</a>
+						<a class="dropdown-item" href="#">Something else here</a>
+					</div>
+				</li>
+			</ul>
+			<form class="form-inline my-2 my-sm-0 mr-sm-2" method="get" action="login.php">
+				<div class="input-group">
+					<input class="form-control" id="pids" name="pid" type="text" placeholder="Enter Product ID" aria-label="Search"/>
+					<button class="input-group-append btn btn-outline-success" id="pidsb" type="submit">Search</button>
+				</div>
+			</form>
+		</div>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="oi oi-chevron-top"></span>
+		</button>
+		<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">Add Product</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="reload()">+-CHECK-+</button>
+	</nav>
