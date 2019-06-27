@@ -31,21 +31,21 @@ include 'header.php';
 						<div class="form-group row">
 							<label for="thumb" class="col-3 col-form-label"><b>Thumb:</b></label>
 							<div class="col-3">
-								<img class="card-img-top" src="./thumbs/default.jpg" id="img1" alt="Card image cap">
+								<img class="card-img-top" src="../thumbs/default.jpg" id="img1" alt="Card image cap">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumb1" name="thumb1"/>
 									<label class="custom-file-label " for="thumb1">Thumb 1</label>
 								</div>
 							</div>
 							<div class="col-3">
-								<img class="card-img-top" src="./thumbs/default.jpg" id="img2"  alt="Card image cap">
+								<img class="card-img-top" src="../thumbs/default.jpg" id="img2"  alt="Card image cap">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumb2" name="thumb2"/>
 									<label class="custom-file-label" for="thumb2">Thumb 2</label>
 								</div>
 							</div>
 							<div class="col-3">
-								<img class="card-img-top" src="./thumbs/default.jpg" id="img3"  alt="Card image cap">
+								<img class="card-img-top" src="../thumbs/default.jpg" id="img3"  alt="Card image cap">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="thumb3" name="thumb3"/>
 									<label class="custom-file-label" for="thumb3">Thumb 3</label>
@@ -169,21 +169,21 @@ include 'header.php';
 						<div class="form-group row">
 							<label for="thumb" class="col-3 col-form-label"><b>Thumb:</b></label>
 							<div class="col-3">
-								<img class="card-img-top" src="./thumbs/default.jpg" id="eimg1" alt="Card image cap">
+								<img class="card-img-top" src="../thumbs/default.jpg" id="eimg1" alt="Card image cap">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="ethumb1" name="thumb1"/>
 									<label class="custom-file-label " for="ethumb1">Thumb 1</label>
 								</div>
 							</div>
 							<div class="col-3">
-								<img class="card-img-top" src="./thumbs/default.jpg" id="eimg2"  alt="Card image cap">
+								<img class="card-img-top" src="../thumbs/default.jpg" id="eimg2"  alt="Card image cap">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="ethumb2" name="thumb2"/>
 									<label class="custom-file-label" for="ethumb2">Thumb 2</label>
 								</div>
 							</div>
 							<div class="col-3">
-								<img class="card-img-top" src="./thumbs/default.jpg" id="eimg3"  alt="Card image cap">
+								<img class="card-img-top" src="../thumbs/default.jpg" id="eimg3"  alt="Card image cap">
 								<div class="custom-file">
 									<input type="file" class="custom-file-input" id="ethumb3" name="thumb3"/>
 									<label class="custom-file-label" for="ethumb3">Thumb 3</label>
@@ -397,9 +397,9 @@ include 'header.php';
 			$.each(Info.body,function(i,item){
 				if(id === parseInt(item.id)){
 					$('#epid').val(id);
-					$('#eimg1').attr('src','./thumbs/'+item.thumb1);
-					$('#eimg2').attr('src','./thumbs/'+item.thumb2);
-					$('#eimg3').attr('src','./thumbs/'+item.thumb3);
+					$('#eimg1').attr('src','../thumbs/'+item.thumb1);
+					$('#eimg2').attr('src','../thumbs/'+item.thumb2);
+					$('#eimg3').attr('src','../thumbs/'+item.thumb3);
 					$('#ename').val(item.name);
 					$('#emunit').val(item.stock_unit);
 					$('#emunit').trigger('change');
@@ -689,7 +689,7 @@ include 'header.php';
 					'<div class="card-header kb-card-header kb-card-header-login">' + 
 						'<h6 class="card-title mb-0 text-center">'+id+' : '+name+'</h6>' + 
 					'</div>' + 
-					'<img class="card-img-top kb-card-img-top" src="./thumbs/'+thumb+'" alt="Card image cap" id="thumb1_'+id+'">' + 
+					'<img class="card-img-top kb-card-img-top" src="../thumbs/'+thumb+'" alt="Card image cap" id="thumb1_'+id+'">' + 
 						'<ul class="list-group list-group-flush">' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Price:</b> ₹'+price+'/-</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Stock:</b> '+stock+' '+unit+'</li>' + 
@@ -723,7 +723,7 @@ include 'header.php';
 	function loadTHUMB1(id) {
 		input=$('#thumb1')[0];
 		if (input.files && input.files[0]) {
-			$('#thumb1_'+id+'').attr('src', './thumbs/'+id+'_thumb1.jpg');
+			$('#thumb1_'+id+'').attr('src', '../thumbs/'+id+'_thumb1.jpg');
 			/*var reader = new FileReader();
 			reader.onload = function(e){
 				console.log(e);
@@ -732,7 +732,7 @@ include 'header.php';
 			reader.readAsDataURL(input.files[0]);*/
 		}
 		else{
-			$('#thumb1_'+id+'').attr('src', './thumbs/default.jpg');
+			$('#thumb1_'+id+'').attr('src', '../thumbs/default.jpg');
 		}
 	}
 
@@ -763,7 +763,7 @@ include 'header.php';
 			}
 			else{
 				$(this).val('');
-				$(img).attr('src', './thumbs/default.jpg');
+				$(img).attr('src', '../thumbs/default.jpg');
 				alert('Only .jpg/.jpeg , .png files are allowed.');
 			}
 		});

@@ -29,9 +29,9 @@ if($login){
 							$response['body'][$ite]=$d;
 							//if(!in_array($d['stock_uid'],$stock_unit)) all sent at a time
 								//$stock_unit[]=$d['stock_uid']; +++++++++++
-								$response['body'][$ite]['thumb1']=file_exists('../thumbs/'.$d['id'].'_thumb1.jpg') ? $d['id'].'_thumb1.jpg' : 'default.jpg' ;
-								$response['body'][$ite]['thumb2']=file_exists('../thumbs/'.$d['id'].'_thumb2.jpg') ? $d['id'].'_thumb2.jpg' : 'default.jpg' ;
-								$response['body'][$ite]['thumb3']=file_exists('../thumbs/'.$d['id'].'_thumb3.jpg') ? $d['id'].'_thumb3.jpg' : 'default.jpg' ;
+								$response['body'][$ite]['thumb1']=file_exists('../../thumbs/'.$d['id'].'_thumb1.jpg') ? $d['id'].'_thumb1.jpg' : 'default.jpg' ;
+								$response['body'][$ite]['thumb2']=file_exists('../../thumbs/'.$d['id'].'_thumb2.jpg') ? $d['id'].'_thumb2.jpg' : 'default.jpg' ;
+								$response['body'][$ite]['thumb3']=file_exists('../../thumbs/'.$d['id'].'_thumb3.jpg') ? $d['id'].'_thumb3.jpg' : 'default.jpg' ;
 							$ite++;
 						}
 						//$Qw='SELECT suid, name FROM stock_units WHERE suid IN ('.implode(',',$stock_unit).');'; send all units at a time
@@ -106,13 +106,13 @@ if($login){
 							$response['body']['pid']=$data[0];
 						}
 						if(isset($_FILES['thumb1']) and $_FILES['thumb1']['size']>0 and $_FILES['thumb1']['error']==0){
-							move_uploaded_file($_FILES['thumb1']['tmp_name'],'../thumbs/'.$data[0].'_thumb1.jpg'/*.strtolower(ext($_FILES['thumb1']['name']))*/);
+							move_uploaded_file($_FILES['thumb1']['tmp_name'],'../../thumbs/'.$data[0].'_thumb1.jpg'/*.strtolower(ext($_FILES['thumb1']['name']))*/);
 						}
 						if(isset($_FILES['thumb2']) and $_FILES['thumb2']['size']>0 and $_FILES['thumb2']['error']==0){
-							move_uploaded_file($_FILES['thumb2']['tmp_name'],'../thumbs/'.$data[0].'_thumb2.jpg'/*.strtolower(ext($_FILES['thumb2']['name']))*/);
+							move_uploaded_file($_FILES['thumb2']['tmp_name'],'../../thumbs/'.$data[0].'_thumb2.jpg'/*.strtolower(ext($_FILES['thumb2']['name']))*/);
 						}
 						if(isset($_FILES['thumb3']) and $_FILES['thumb3']['size']>0 and $_FILES['thumb3']['error']==0){
-							move_uploaded_file($_FILES['thumb3']['tmp_name'],'../thumbs/'.$data[0].'_thumb3.jpg'/*.strtolower(ext($_FILES['thumb3']['name']))*/);
+							move_uploaded_file($_FILES['thumb3']['tmp_name'],'../../thumbs/'.$data[0].'_thumb3.jpg'/*.strtolower(ext($_FILES['thumb3']['name']))*/);
 						}
 		break;
 		case 'EditProduct': 
@@ -138,13 +138,13 @@ if($login){
 						$stmt=null;
 						
 						if(isset($_FILES['thumb1']) and $_FILES['thumb1']['size']>0 and $_FILES['thumb1']['error']==0){
-							move_uploaded_file($_FILES['thumb1']['tmp_name'],'../thumbs/'.$_POST['pid'].'_thumb1.jpg'/*.strtolower(ext($_FILES['thumb1']['name']))*/);
+							move_uploaded_file($_FILES['thumb1']['tmp_name'],'../../thumbs/'.$_POST['pid'].'_thumb1.jpg'/*.strtolower(ext($_FILES['thumb1']['name']))*/);
 						}
 						if(isset($_FILES['thumb2']) and $_FILES['thumb2']['size']>0 and $_FILES['thumb2']['error']==0){
-							move_uploaded_file($_FILES['thumb2']['tmp_name'],'../thumbs/'.$_POST['pid'].'_thumb2.jpg'/*.strtolower(ext($_FILES['thumb2']['name']))*/);
+							move_uploaded_file($_FILES['thumb2']['tmp_name'],'../../thumbs/'.$_POST['pid'].'_thumb2.jpg'/*.strtolower(ext($_FILES['thumb2']['name']))*/);
 						}
 						if(isset($_FILES['thumb3']) and $_FILES['thumb3']['size']>0 and $_FILES['thumb3']['error']==0){
-							move_uploaded_file($_FILES['thumb3']['tmp_name'],'../thumbs/'.$_POST['pid'].'_thumb3.jpg'/*.strtolower(ext($_FILES['thumb3']['name']))*/);
+							move_uploaded_file($_FILES['thumb3']['tmp_name'],'../../thumbs/'.$_POST['pid'].'_thumb3.jpg'/*.strtolower(ext($_FILES['thumb3']['name']))*/);
 						}
 						$response['msg']=['degree'=>'success','body'=>'Changes Saved Successfully.'];
 						$response['body']='success';

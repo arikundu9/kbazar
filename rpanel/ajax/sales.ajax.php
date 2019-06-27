@@ -21,9 +21,9 @@ if($login){
 							$response['body'][$ite]=$d;
 							//if(!in_array($d['stock_uid'],$stock_unit)) all sent at a time
 								//$stock_unit[]=$d['stock_uid']; +++++++++++
-								$response['body'][$ite]['thumb1']=file_exists('../thumbs/'.$d['pid'].'_thumb1.jpg') ? $d['pid'].'_thumb1.jpg' : 'default.jpg' ;
-								$response['body'][$ite]['thumb2']=file_exists('../thumbs/'.$d['pid'].'_thumb2.jpg') ? $d['pid'].'_thumb2.jpg' : 'default.jpg' ;
-								$response['body'][$ite]['thumb3']=file_exists('../thumbs/'.$d['pid'].'_thumb3.jpg') ? $d['pid'].'_thumb3.jpg' : 'default.jpg' ;
+								$response['body'][$ite]['thumb1']=file_exists('../../thumbs/'.$d['pid'].'_thumb1.jpg') ? $d['pid'].'_thumb1.jpg' : 'default.jpg' ;
+								$response['body'][$ite]['thumb2']=file_exists('../../thumbs/'.$d['pid'].'_thumb2.jpg') ? $d['pid'].'_thumb2.jpg' : 'default.jpg' ;
+								$response['body'][$ite]['thumb3']=file_exists('../../thumbs/'.$d['pid'].'_thumb3.jpg') ? $d['pid'].'_thumb3.jpg' : 'default.jpg' ;
 							$ite++;
 						}
 						$Qw='SELECT suid, name FROM stock_units;';

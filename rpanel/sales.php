@@ -274,7 +274,7 @@ include 'header.php';
 						'<h6 class="card-title mb-0 text-center">'+id+' : '+name+'</h6>' + 
 					'</div>' +	*/
 					'<div class="card-body p-0">' +
-					'<img class="card-img-top" src="./thumbs/'+e.thumb1+'" alt="Card image cap" id="thumb1_'+e.oid+'">' + 
+					'<img class="card-img-top" src="../thumbs/'+e.thumb1+'" alt="Card image cap" id="thumb1_'+e.oid+'">' + 
 						'<ul class="list-group list-group-flush">' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Order ID:</b> '+e.oid+'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product ID:</b> '+e.pid+'</li>' + 
@@ -311,7 +311,7 @@ include 'header.php';
 						'<h6 class="card-title mb-0 text-center">'+id+' : '+name+'</h6>' + 
 					'</div>' +	*/
 					'<div class="card-body p-0">' +
-					'<img class="card-img-top" src="./thumbs/'+e.thumb1+'" alt="Card image cap" id="thumb1_'+e.oid+'">' + 
+					'<img class="card-img-top" src="../thumbs/'+e.thumb1+'" alt="Card image cap" id="thumb1_'+e.oid+'">' + 
 						'<ul class="list-group list-group-flush">' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Order ID:</b> '+e.oid+'</li>' + 
 							'<li class="kb list-group-item border-left-0 border-right-0"><b>Product ID:</b> '+e.pid+'</li>' + 
