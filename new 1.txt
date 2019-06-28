@@ -1,0 +1,2 @@
+ultimate final state: Rejected,Canceled, Refunded
+tmp final state: Delevered, Refund Rejected, Replace Rejected, Replaced	645
