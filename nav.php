@@ -1,10 +1,7 @@
 <?php
 $nav=[	
-		'dashboard.php'=>['Dashboard','','dashboard'],
-		'products.php'=>['Products','','box'],
-		'sales.php'=>['Sales','','monitor'],
-		'customers.php'=>['Customers','','dollar'],
-		'kbazar_v2'=>['Home','','cog']
+		'kbazar_v2'=>['Home','','home'],
+		'cart.php'=>['Cart','','cart']
 	];
 
 $script=basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
@@ -17,17 +14,17 @@ $nav[$script][1]='active';
 		</div>
 		<div class="col-12 p-0">
 			<nav class="navbar navbar-expand-md navbar-dark bg-dark py-0 px-0 sori_nav border-0">
-				<div class="mx-auto">KBazar</div>
+				<div class="mx-auto logo pl-md-1 mx-md-1">KBazar</div>
 				<button class="navbar-toggler py-2 border-0 xw-100 text-center btn-drop" type="button" data-toggle="collapse" 
 						data-target="#navbarCollapse2" aria-controls="navbarCollapse2" 
 						aria-expanded="false" aria-label="Toggle navigation">
 					<span class="oi oi-grid-three-up"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbarCollapse2">
-					<div class="d-flex justify-content-around my-2 my-md-0 my-lg-0 my-xl-0">
+					<!--<div class="d-flex justify-content-around my-2 my-md-0 my-lg-0 my-xl-0">
 						<a class="btn btn-light btn-sm mr-2" href="logout.php"><span class="oi oi-power-standby mr-1"></span>Logout</a>
-					</div>
-					<ul class="navbar-nav mr-auto font-roboto-bold">
+					</div>-->
+					<ul class="navbar-nav ml-auto font-roboto-bold">
 						<?php
 						foreach($nav as $k=>$v){
 							echo '

@@ -2,7 +2,8 @@
     --color-one: #345185;
 	--color-two: #609a41;
 	--color-bodybg: #f7f7f7;
-	--primary-gradient: linear-gradient(to right, var(--color-two), var(--color-one));}
+	--primary-gradient: linear-gradient(to right, var(--color-two), var(--color-one));
+}
 
 .text-color-one {
     color: var(--color-one);

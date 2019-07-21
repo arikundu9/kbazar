@@ -1,7 +1,7 @@
 <?php
 $dbserver="localhost";
 $dbuser="root";
-$dbpass="!SORI@sori20";
+$dbpass="rootpass";
 $dbname="kbazar";
 $drop=1;
 
